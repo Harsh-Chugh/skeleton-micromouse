@@ -8,14 +8,6 @@ function Grid({ numRows, numCols, sr, sc, er, ec }) {
     Array.from({ length: numRows }, () => new Array(numCols).fill(false))
   );
 
-  // const [coordinates, setCoordinates] = useState({
-  //   x: 5,
-  //   y: 5
-  // })
-
-  // const [x, setX] = useState(5);
-  // const [y, setY] = useState(5);
-
   const [pathCells, setPathCells] = useState([]);
 
   const toggleCell = (row, col) => {
@@ -55,14 +47,12 @@ console.log('FSDF')
   while(queue.length > 0){
     var thisCell = queue.shift();
     var x = Number(thisCell[0]), y = Number(thisCell[1]);
-    // console.log('ff',x,y)
       for(var i=0;i<4;i++){
           if(x + dx[i] >=0 && y + dy[i] >=0 && x+dx[i] < numRows 
               && y + dy[i] < numCols && !visited[x + dx[i]][y + dy[i]]
                   && !grid[x + dx[i]][y + dy[i]]){
                   queue.push([x + dx[i], y + dy[i]]);
                   visited[x + dx[i]][y + dy[i]] = true;
-                  // console.log('lol',x+dx[i],y+dy[i]);
                   parentX[x + dx[i]][y + dy[i]] = x;
                   parentY[x + dx[i]][y + dy[i]] = y;
               }
@@ -132,12 +122,11 @@ console.log('FSDF')
 
   function isItemInArray(array, item) {
     for (var i = 0; i < array.length; i++) {
-        // This if statement depends on the format of your array
         if (array[i][0] == item[0] && array[i][1] == item[1]) {
-            return true;   // Found it
+            return true;  
         }
     }
-    return false;   // Not found
+    return false;  
 }
 
   return (
@@ -154,7 +143,6 @@ console.log('FSDF')
 
                 
 
-                // backgroundColor: grid[rowIndex][colIndex] ? "black" : "white",
                 backgroundColor:   rowIndex== sr && colIndex== sc ? "red" : 
                     (rowIndex==er && colIndex==ec ? "green" : 
                       isItemInArray(pathCells, [rowIndex, colIndex]) ? "yellow" :  
