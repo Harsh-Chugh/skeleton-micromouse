@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-
-
+import "../index.css"
 
 function Grid({ numRows, numCols, sr, sc, er, ec }) {
   console.log("canada");
   const [grid, setGrid] = useState(() =>
     Array.from({ length: numRows }, () => new Array(numCols).fill(false))
   );
-
+  const [isMouseDown, setMouseDown] = useState(false);
   const [pathCells, setPathCells] = useState([]);
 
   const toggleCell = (row, col) => {
@@ -15,6 +14,14 @@ function Grid({ numRows, numCols, sr, sc, er, ec }) {
     newGrid[row][col] = !newGrid[row][col];
     setGrid(newGrid);
   };
+
+  const handleClickedHover = (row, col) =>{
+    const newGrid = [...grid];
+    newGrid[row][col] =  (isMouseDown ? true : newGrid[row][col]);
+    setGrid(newGrid);
+  }
+
+
 
   console.log(sr, sc, er, ec);
 
@@ -130,7 +137,7 @@ console.log('FSDF')
 }
 
   return (
-    <div className="">
+    <div className="grid">
       <button onClick={Path}>Call Path Now</button>
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
@@ -151,6 +158,9 @@ console.log('FSDF')
                 border: "1px solid gray",
               }}
               onClick={() => toggleCell(rowIndex, colIndex)}
+              onMouseDown={()=>{setMouseDown(true)}}
+              onMouseUp={()=>{setMouseDown(false)}}
+              onMouseEnter={() => handleClickedHover(rowIndex, colIndex)}
             />
           ))}
         </div>
