@@ -24,6 +24,7 @@ function App(){
 
 
 
+
     return (
       <div>
 
@@ -31,6 +32,7 @@ function App(){
         <input onChange={handleChange} type="number" name = "sc" placeholder="Starting Cell col-index"/>
         <input onChange={handleChange} type="number" name = "er" placeholder="Ending Cell row-index"/>
         <input onChange={handleChange} type="number" name = "ec" placeholder="Ending Cell col-index"/>
+
         <Grid numRows={30} numCols={30} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
         </div>
       );
