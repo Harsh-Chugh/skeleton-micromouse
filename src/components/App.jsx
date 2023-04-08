@@ -34,7 +34,7 @@ function App(){
         <input onChange={handleChange} type="number" name = "er" placeholder="Ending Cell row-index"/>
         <input onChange={handleChange} type="number" name = "ec" placeholder="Ending Cell col-index"/>
         <button onClick={handleSubmit} type = "submit"></button>
-        <Grid numRows={5} numCols={5} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
+        <Grid numRows={30} numCols={30} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
         </div>
       );
     }
