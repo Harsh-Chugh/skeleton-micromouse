@@ -6,8 +6,19 @@ function Grid({ numRows, numCols, sr, sc, er, ec }) {
   const [grid, setGrid] = useState(() =>
     Array.from({ length: numRows }, () => new Array(numCols).fill(false))
   );
+
+  const [grid2, setGrid2] = useState(() =>
+  Array.from({ length: numRows }, () => new Array(numCols).fill(false))
+);
+
   const [isMouseDown, setMouseDown] = useState(false);
   const [pathCells, setPathCells] = useState([]);
+  const [coordinates, setCoordinates] = useState({
+    x: -1,
+    y: -1
+  });
+
+
 
   const toggleCell = (row, col) => {
     const newGrid = [...grid];
@@ -85,8 +96,25 @@ console.log('FSDF')
 
   console.log(path);
   console.log("size", path.length);
-
+  path.pop();
   setPathCells(path);
+
+  // path.forEach((currentCoordinates) =>{
+  //   setCoordinates((prevCoordinates)=>{
+  //     return {
+  //       ...prevCoordinates,
+  //       x: currentCoordinates[0],
+  //       y: currentCoordinates[1]
+  //     }
+  //   }); 
+  //   if(currentCoordinates!==[]){ 
+  //   setTimeout(() => {
+  //     console.log("cc", coordinates);
+  //   }, 3000);
+  //   }
+    
+  // });
+
   // for(var index=0; index < path.length -1; index++)
   // { 
   //     setX(path[index][0]);
@@ -148,12 +176,16 @@ console.log('FSDF')
                 width: "20px",
                 height: "20px",
 
-                
-
                 backgroundColor:   rowIndex== sr && colIndex== sc ? "red" : 
                     (rowIndex==er && colIndex==ec ? "green" : 
-                      isItemInArray(pathCells, [rowIndex, colIndex]) ? "yellow" :  
+                      grid2[rowIndex][colIndex] ? "yellow" :  
                         (grid[rowIndex][colIndex] ? "black" : "white")),
+                
+
+                // backgroundColor:   rowIndex== sr && colIndex== sc ? "red" : 
+                //     (rowIndex==er && colIndex==ec ? "green" : 
+                //       isItemInArray(pathCells, [rowIndex, colIndex]) ? "yellow" :  
+                //         (grid[rowIndex][colIndex] ? "black" : "white")),
                  
                 border: "1px solid gray",
               }}
@@ -162,10 +194,26 @@ console.log('FSDF')
               onMouseUp={()=>{setMouseDown(false)}}
               onMouseEnter={() => handleClickedHover(rowIndex, colIndex)}
             />
+
+            
+            
           ))}
+
+        {pathCells.length > 1 && pathCells.forEach((arr, index) =>{
+            setTimeout(()=>{
+              const newGrid = [...grid2];
+              newGrid[arr[0]][arr[1]] = true;
+              setGrid2(newGrid);
+            }, 1000);
+          })}
+              
         </div>
       ))}
+      
+
     </div>
+
+    
   );
 }
 

@@ -28,10 +28,10 @@ function App(){
     return (
       <div>
 
-        <input onChange={handleChange} type="number" name = "sr" placeholder="Starting Cell row-index"/>
-        <input onChange={handleChange} type="number" name = "sc" placeholder="Starting Cell col-index"/>
-        <input onChange={handleChange} type="number" name = "er" placeholder="Ending Cell row-index"/>
-        <input onChange={handleChange} type="number" name = "ec" placeholder="Ending Cell col-index"/>
+        <input onChange={handleChange} type="number" min ={0} name = "sr" placeholder="Starting Cell row-index"/>
+        <input onChange={handleChange} type="number" min ={0} name = "sc" placeholder="Starting Cell col-index"/>
+        <input onChange={handleChange} type="number" min ={0} name = "er" placeholder="Ending Cell row-index"/>
+        <input onChange={handleChange} type="number" min ={0} name = "ec" placeholder="Ending Cell col-index"/>
 
         <Grid numRows={30} numCols={30} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
         </div>
