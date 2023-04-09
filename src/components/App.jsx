@@ -28,10 +28,72 @@ function App(){
     return (
       <div>
 
-        <input onChange={handleChange} type="number" min ={0} name = "sr" placeholder="Starting Cell row-index"/>
-        <input onChange={handleChange} type="number" min ={0} name = "sc" placeholder="Starting Cell col-index"/>
-        <input onChange={handleChange} type="number" min ={0} name = "er" placeholder="Ending Cell row-index"/>
-        <input onChange={handleChange} type="number" min ={0} name = "ec" placeholder="Ending Cell col-index"/>
+<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+  <input 
+    onChange={handleChange} 
+    type="number" 
+    min={0} 
+    name="sr" 
+    placeholder="Starting Cell row-index"
+    style={{ 
+      padding: '10px', 
+      margin: '10px', 
+      border: '2px solid #4CAF50', 
+      borderRadius: '4px', 
+      fontSize: '16px',
+      fontWeight: 'bold'
+    }}
+  />
+  <input 
+    onChange={handleChange} 
+    type="number" 
+    min={0} 
+    name="sc" 
+    placeholder="Starting Cell col-index"
+    style={{ 
+      padding: '10px', 
+      margin: '10px', 
+      border: '2px solid #4CAF50', 
+      borderRadius: '4px', 
+      fontSize: '16px',
+      fontWeight: 'bold'
+    }}
+  />
+  <input 
+    onChange={handleChange} 
+    type="number" 
+    min={0} 
+    name="er" 
+    placeholder="Ending Cell row-index"
+    style={{ 
+      padding: '10px', 
+      margin: '10px', 
+      border: '2px solid #4CAF50', 
+      borderRadius: '4px', 
+      fontSize: '16px',
+      fontWeight: 'bold'
+    }}
+  />
+  <input 
+    onChange={handleChange} 
+    type="number" 
+    min={0} 
+    name="ec" 
+    placeholder="Ending Cell col-index"
+    style={{ 
+      padding: '10px', 
+      margin: '10px', 
+      border: '2px solid #4CAF50', 
+      borderRadius: '4px', 
+      fontSize: '16px',
+      fontWeight: 'bold'
+    }}
+  />
+</div>
+
+
+
+
 
         <Grid numRows={30} numCols={30} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
         </div>

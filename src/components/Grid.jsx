@@ -233,8 +233,14 @@ console.log('FSDF')
 }
 
   return (
-    <div className="grid">
-      <button onClick={Path}>Call Path Now</button>
+    <div className="grid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      {/* <button onClick={Path}>Call Path Now</button> */}
+      <button
+style={{ backgroundColor: '#4CAF50', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold', marginBottom: '2rem' }}
+onClick={Path}> 
+
+Let's Begin
+  </button>
       {!isReachable && <h1>Path doesn't exist!!!</h1>}
       {isReachable && grid.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
@@ -244,11 +250,14 @@ console.log('FSDF')
               style={{
                 width: "20px",
                 height: "20px",
+                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', borderRadius: '5px', padding: '2px',
 
                 backgroundColor:   rowIndex== sr && colIndex== sc ? "red" : 
                     (rowIndex==er && colIndex==ec ? "green" : 
-                      grid2[rowIndex][colIndex] ==1 ? "#3242FF" : 
-                      grid2[rowIndex][colIndex] ==2 ?"yellow" :    
+                    grid2[rowIndex][colIndex] === 1 ? "#C7E9B0" : 
+                    grid2[rowIndex][colIndex] === 2 ? "#D9ACF5" :
+
+                
                         (grid[rowIndex][colIndex] ? "black" : "white")),
                 
 
