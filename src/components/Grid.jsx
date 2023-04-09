@@ -3,6 +3,7 @@ import "../index.css"
 
 function Grid({ numRows, numCols, sr, sc, er, ec }) {
   console.log("canada");
+  
   const [grid, setGrid] = useState(() =>
   Array.from({ length: numRows }, () => new Array(numCols).fill(false))
   );
@@ -143,6 +144,12 @@ console.log('FSDF')
         path.push([x, y]);
         console.log('fsdf',x,y)
         var temp_x = Number(x) ,temp_y = Number(y);
+
+        if(Number.isNaN(temp_x)){
+            alert("Path Does Not Exist!!!"); 
+            return;
+        }
+
         console.log('bfcdnsa',temp_x,temp_y);
         x = parentX[temp_x][temp_y];
         y = parentY[temp_x][temp_y];
@@ -158,9 +165,11 @@ console.log('FSDF')
     console.log("gggg", path);
     console.log("size", path.length);
     path.pop();
+    console.log("path length", path.length);
     // if(path.length === 0) setIsReachable(false);
 
     setPathCells(path);
+
 
 
     /************************************************** */
