@@ -4,19 +4,22 @@ import "../index.css"
 function Grid({ numRows, numCols, sr, sc, er, ec }) {
   console.log("canada");
   const [grid, setGrid] = useState(() =>
-    Array.from({ length: numRows }, () => new Array(numCols).fill(false))
-  );
-
-  const [grid2, setGrid2] = useState(() =>
   Array.from({ length: numRows }, () => new Array(numCols).fill(false))
-);
-
+  );
+  
+  const [grid2, setGrid2] = useState(() =>
+  Array.from({ length: numRows }, () => new Array(numCols).fill(0))
+  );
+  
+  var isReachable = 1;
   const [isMouseDown, setMouseDown] = useState(false);
   const [pathCells, setPathCells] = useState([]);
   const [coordinates, setCoordinates] = useState({
     x: -1,
     y: -1
   });
+
+  const [idx, setIdx] = useState(-5);
 
 
 
@@ -34,7 +37,7 @@ function Grid({ numRows, numCols, sr, sc, er, ec }) {
 
 
 
-  console.log(sr, sc, er, ec);
+  // console.log(sr, sc, er, ec);
 
 
 
@@ -53,56 +56,121 @@ console.log('FSDF')
           visited[i][j] = false;
       }
   }
-  
-  var queue = [];
-  queue.push([sr, sc]);
-  visited[sr][sc] = true;
-  console.log('dfs',sr,sc)
 
   var dx = [1, -1, 0, 0];
   var dy = [0, 0, 1, -1];
+  var isDestination = false;
 
-  while(queue.length > 0){
-    var thisCell = queue.shift();
-    var x = Number(thisCell[0]), y = Number(thisCell[1]);
+
+  function dfs(row, col)
+  {
+      visited[row][col] = true;
+      
+      var x = Number(row), y = Number(col);
+      
+      if(x === Number(er) && y === Number(ec)){
+        isDestination = true;
+      }
+      console.log("isD", isDestination);
+      console.log("x y er ec", x, y, er,ec );
+      if(!isDestination){
+      
       for(var i=0;i<4;i++){
           if(x + dx[i] >=0 && y + dy[i] >=0 && x+dx[i] < numRows 
               && y + dy[i] < numCols && !visited[x + dx[i]][y + dy[i]]
                   && !grid[x + dx[i]][y + dy[i]]){
-                  queue.push([x + dx[i], y + dy[i]]);
-                  visited[x + dx[i]][y + dy[i]] = true;
-                  parentX[x + dx[i]][y + dy[i]] = x;
-                  parentY[x + dx[i]][y + dy[i]] = y;
+
+                    if(!isDestination){
+                      parentX[x + dx[i]][y + dy[i]] = x;
+                      parentY[x + dx[i]][y + dy[i]] = y;
+                      setTimeout(()=>{
+                        const newGrid = [...grid2];
+                        newGrid[x][y] = 1;
+                        setGrid2(newGrid);
+                      },1000)
+                      dfs(x + dx[i], y + dy[i]);
+                    }
               }
+      }
+
       }
 
   }
 
-  var path=[[]];
-  var x = Number(er), y = Number(ec);
-  console.log('x',x,y)
 
-  while(!(x===Number(sr) && y===Number(sc))){
-      path.push([x, y]);
-      console.log('fsdf',x,y)
-      var temp_x = Number(x) ,temp_y = Number(y);
-      console.log('bfcdnsa',temp_x,temp_y);
-      x = parentX[temp_x][temp_y];
-      y = parentY[temp_x][temp_y];
-  }
+  dfs(sr, sc);
 
-  path.push([Number(sr),Number(sc)]);
-  path.reverse();
+  
+  for(var i=0;i<numRows;i++){
+    for(var j=0;j<numCols;j++){
+        visited[i][j] = false;
+    }
+}
 
-  console.log(path);
-  console.log("size", path.length);
-  path.pop();
-  setPathCells(path);
+    var queue = [];
+    queue.push([sr, sc]);
+    visited[sr][sc] = true;
+    console.log('dfs',sr,sc)
 
-  // path.forEach((currentCoordinates) =>{
-  //   setCoordinates((prevCoordinates)=>{
-  //     return {
-  //       ...prevCoordinates,
+
+
+    while(queue.length > 0){
+      var thisCell = queue.shift();
+      var x = Number(thisCell[0]), y = Number(thisCell[1]);
+      
+      if(x === er && y === ec){
+          isReachable =2;
+      }
+      
+        for(var i=0;i<4;i++){
+            if(x + dx[i] >=0 && y + dy[i] >=0 && x+dx[i] < numRows 
+                && y + dy[i] < numCols && !visited[x + dx[i]][y + dy[i]]
+                    && !grid[x + dx[i]][y + dy[i]]){
+                    queue.push([x + dx[i], y + dy[i]]);
+                    visited[x + dx[i]][y + dy[i]] = true;
+                    parentX[x + dx[i]][y + dy[i]] = x;
+                    parentY[x + dx[i]][y + dy[i]] = y;
+                }
+        }
+
+    }
+
+    var path=[[]];
+    var x = Number(er), y = Number(ec);
+    console.log('x',x,y)
+
+    while(!(x===Number(sr) && y===Number(sc))){
+        path.push([x, y]);
+        console.log('fsdf',x,y)
+        var temp_x = Number(x) ,temp_y = Number(y);
+        console.log('bfcdnsa',temp_x,temp_y);
+        x = parentX[temp_x][temp_y];
+        y = parentY[temp_x][temp_y];
+    }
+
+    if(isReachable===1){
+      isReachable = 0;
+    }
+
+    path.push([Number(sr),Number(sc)]);
+    path.reverse();
+
+    console.log("gggg", path);
+    console.log("size", path.length);
+    path.pop();
+    // if(path.length === 0) setIsReachable(false);
+
+    setPathCells(path);
+
+
+    /************************************************** */
+
+
+
+    // path.forEach((currentCoordinates) =>{
+    //   setCoordinates((prevCoordinates)=>{
+    //     return {
+    //       ...prevCoordinates,
   //       x: currentCoordinates[0],
   //       y: currentCoordinates[1]
   //     }
@@ -153,7 +221,7 @@ console.log('FSDF')
   // return path;
 }
 
-  console.log("path", pathCells);
+  // console.log("path", pathCells);
 
   function isItemInArray(array, item) {
     for (var i = 0; i < array.length; i++) {
@@ -167,7 +235,8 @@ console.log('FSDF')
   return (
     <div className="grid">
       <button onClick={Path}>Call Path Now</button>
-      {grid.map((row, rowIndex) => (
+      {!isReachable && <h1>Path doesn't exist!!!</h1>}
+      {isReachable && grid.map((row, rowIndex) => (
         <div key={rowIndex} style={{ display: "flex" }}>
           {row.map((col, colIndex) => (
             <div
@@ -178,7 +247,8 @@ console.log('FSDF')
 
                 backgroundColor:   rowIndex== sr && colIndex== sc ? "red" : 
                     (rowIndex==er && colIndex==ec ? "green" : 
-                      grid2[rowIndex][colIndex] ? "yellow" :  
+                      grid2[rowIndex][colIndex] ==1 ? "#3242FF" : 
+                      grid2[rowIndex][colIndex] ==2 ?"yellow" :    
                         (grid[rowIndex][colIndex] ? "black" : "white")),
                 
 
@@ -199,13 +269,13 @@ console.log('FSDF')
             
           ))}
 
-        {pathCells.length > 1 && pathCells.forEach((arr, index) =>{
+          {pathCells.length > 1 && pathCells.forEach((arr, index) =>{
             setTimeout(()=>{
               const newGrid = [...grid2];
-              newGrid[arr[0]][arr[1]] = true;
+              newGrid[arr[0]][arr[1]] = 2;
               setGrid2(newGrid);
             }, 1000);
-          })}
+          })}  
               
         </div>
       ))}
