@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import Grid from "./Grid";
+
+const r = Number(prompt("No. of Rows in grid "));
+const c = Number(prompt("No. of columns in grid"));
+
 function App(){
 
     const [coordinates, setCoordinates] = useState({
@@ -31,6 +35,7 @@ function App(){
     onChange={handleChange} 
     type="number" 
     min={0} 
+    
     name="sr" 
     placeholder="Starting Cell row-index"
     style={{ 
@@ -46,6 +51,7 @@ function App(){
     onChange={handleChange} 
     type="number" 
     min={0} 
+    
     name="sc" 
     placeholder="Starting Cell col-index"
     style={{ 
@@ -61,6 +67,7 @@ function App(){
     onChange={handleChange} 
     type="number" 
     min={0} 
+    
     name="er" 
     placeholder="Ending Cell row-index"
     style={{ 
@@ -76,6 +83,7 @@ function App(){
     onChange={handleChange} 
     type="number" 
     min={0} 
+  
     name="ec" 
     placeholder="Ending Cell col-index"
     style={{ 
@@ -90,10 +98,7 @@ function App(){
 </div>
 
 
-
-
-
-        <Grid numRows={30} numCols={30} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
+        <Grid numRows={r} numCols={c} sr={coordinates.sr} sc={coordinates.sc} er={coordinates.er} ec={coordinates.ec}/>
         </div>
       );
     }

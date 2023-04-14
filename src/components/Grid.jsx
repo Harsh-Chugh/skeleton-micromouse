@@ -38,9 +38,6 @@ function Grid({ numRows, numCols, sr, sc, er, ec }) {
 
 
 
-  // console.log(sr, sc, er, ec);
-
-
 
   
 const  Path = () =>{
@@ -171,63 +168,6 @@ console.log('FSDF')
     setPathCells(path);
 
 
-
-    /************************************************** */
-
-
-
-    // path.forEach((currentCoordinates) =>{
-    //   setCoordinates((prevCoordinates)=>{
-    //     return {
-    //       ...prevCoordinates,
-  //       x: currentCoordinates[0],
-  //       y: currentCoordinates[1]
-  //     }
-  //   }); 
-  //   if(currentCoordinates!==[]){ 
-  //   setTimeout(() => {
-  //     console.log("cc", coordinates);
-  //   }, 3000);
-  //   }
-    
-  // });
-
-  // for(var index=0; index < path.length -1; index++)
-  // { 
-  //     setX(path[index][0]);
-  //     setY(path[index][1]);
-
-  //     console.log("x y", x, y);
-      // setTimeout(setCoordinates(prevCoordinates=>{
-      //   return {
-      //     ...prevCoordinates,
-      //     x: path[index][0],
-      //     y: path[index][1]
-      //   }
-      // }), 1000);
-
-      // setCoordinates(prevCoordinates=>{
-      //   return {
-      //     ...prevCoordinates,
-      //     x:path[index][0],
-      //     y:path[index][1]
-      //   }
-      // });
-
-      // const obj = {
-      //   x:path[index][0],
-      //   y:path[index][1]
-      // }
-      // setCoordinates(obj);
-
-      // setTimeout(()=>{
-      //   console.log("hello");
-      // },1000);
-
-      // console.log("ccc", coordinates,index, path[index][0], path[index][1] );
-  // }
-
-  // return path;
 }
 
   // console.log("path", pathCells);
@@ -241,9 +181,10 @@ console.log('FSDF')
     return false;  
 }
 
+
   return (
     <div className="grid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      {/* <button onClick={Path}>Call Path Now</button> */}
+     
       <button
 style={{ backgroundColor: '#4CAF50', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold', marginBottom: '2rem' }}
 onClick={Path}> 
