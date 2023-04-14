@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../index.css"
 
 function Grid({ numRows, numCols, sr, sc, er, ec }) {
-  console.log("canada");
+  // console.log("canada");
   
   const [grid, setGrid] = useState(() =>
   Array.from({ length: numRows }, () => new Array(numCols).fill(false))
@@ -41,7 +41,7 @@ function Grid({ numRows, numCols, sr, sc, er, ec }) {
 
   
 const  Path = () =>{
-console.log('FSDF')
+// console.log('FSDF')
   var visited = new Array(numRows), parentX = new Array(numRows), parentY = new Array(numRows);
   for(var i=0;i<numRows;i++){
       visited[i] = new Array(numCols);
@@ -69,8 +69,8 @@ console.log('FSDF')
       if(x === Number(er) && y === Number(ec)){
         isDestination = true;
       }
-      console.log("isD", isDestination);
-      console.log("x y er ec", x, y, er,ec );
+      // console.log("isD", isDestination);
+      // console.log("x y er ec", x, y, er,ec );
       if(!isDestination){
       
       for(var i=0;i<4;i++){
@@ -85,7 +85,7 @@ console.log('FSDF')
                         const newGrid = [...grid2];
                         newGrid[x][y] = 1;
                         setGrid2(newGrid);
-                      },1000)
+                      },10)
                       dfs(x + dx[i], y + dy[i]);
                     }
               }
@@ -108,7 +108,7 @@ console.log('FSDF')
     var queue = [];
     queue.push([sr, sc]);
     visited[sr][sc] = true;
-    console.log('dfs',sr,sc)
+    // console.log('dfs',sr,sc)
 
 
 
@@ -135,11 +135,11 @@ console.log('FSDF')
 
     var path=[[]];
     var x = Number(er), y = Number(ec);
-    console.log('x',x,y)
+    // console.log('x',x,y)
 
     while(!(x===Number(sr) && y===Number(sc))){
         path.push([x, y]);
-        console.log('fsdf',x,y)
+        // console.log('fsdf',x,y)
         var temp_x = Number(x) ,temp_y = Number(y);
 
         if(Number.isNaN(temp_x)){
@@ -147,7 +147,7 @@ console.log('FSDF')
             return;
         }
 
-        console.log('bfcdnsa',temp_x,temp_y);
+        // console.log('bfcdnsa',temp_x,temp_y);
         x = parentX[temp_x][temp_y];
         y = parentY[temp_x][temp_y];
     }
@@ -159,10 +159,10 @@ console.log('FSDF')
     path.push([Number(sr),Number(sc)]);
     path.reverse();
 
-    console.log("gggg", path);
-    console.log("size", path.length);
+    // console.log("gggg", path);
+    // console.log("size", path.length);
     path.pop();
-    console.log("path length", path.length);
+    // console.log("path length", path.length);
     // if(path.length === 0) setIsReachable(false);
 
     setPathCells(path);
@@ -181,9 +181,25 @@ console.log('FSDF')
     return false;  
 }
 
+  useEffect(()=> {
+    pathCells.length > 1 && pathCells.forEach((arr, index) =>{
+    setTimeout(()=>{
+      const newGrid = [...grid2];
+      newGrid[arr[0]][arr[1]] = 2;
+      setGrid2(newGrid);
+    }, index * 20);
+  })}  , [pathCells.length ]);
+
+  const cellSize = Math.min(
+    Math.floor((window.innerHeight - 10) / numRows),
+    Math.floor((window.innerWidth - 10) / numCols)
+  );
+
 
   return (
-    <div className="grid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <div style={{marginLeft:'40px', marginRight:'40px'}}>
+
+    <div className="grid" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
      
       <button
 style={{ backgroundColor: '#4CAF50', color: 'white', padding: '10px 20px', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold', marginBottom: '2rem' }}
@@ -198,8 +214,8 @@ Let's Begin
             <div
               key={`${rowIndex}-${colIndex}`}
               style={{
-                width: "20px",
-                height: "20px",
+              width: `${cellSize}px`,
+              height: `${cellSize}px`,
                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)', borderRadius: '5px', padding: '2px',
 
                 backgroundColor:   rowIndex== sr && colIndex== sc ? "red" : 
@@ -228,13 +244,7 @@ Let's Begin
             
           ))}
 
-          {pathCells.length > 1 && pathCells.forEach((arr, index) =>{
-            setTimeout(()=>{
-              const newGrid = [...grid2];
-              newGrid[arr[0]][arr[1]] = 2;
-              setGrid2(newGrid);
-            }, 1000);
-          })}  
+  
               
         </div>
       ))}
@@ -243,6 +253,7 @@ Let's Begin
     </div>
 
     
+    </div>
   );
 }
 
